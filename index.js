@@ -32,10 +32,15 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
+    const jobsCollection = client.db('jobsDB').collection('jobs');
 
-    app.post('/addJobs', async(req,res)=>{
+
+
+    app.post('/jobs', async(req,res)=>{
         const newJobs = req.body;
         console.log(newJobs);
+        const result = await jobsCollection.insertOne(newJobs);
+        res.send(result);
     })
 
 
