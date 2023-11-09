@@ -41,6 +41,13 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/jobs/:id', async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)}
+        const result = await jobsCollection.findOne(query);
+        res.send(result);
+    })
+
     app.post('/jobs', async(req,res)=>{
         const newJobs = req.body;
         console.log(newJobs);
@@ -49,7 +56,7 @@ async function run() {
     })
 
 
-    app.delete('jobs/:id', async (req,res)=>{
+    app.delete('/jobs/:id', async (req,res)=>{
         const id= req.params.id;
         const query = {_id: new ObjectId(id)}
         const result = await jobsCollection.deleteOne(query);
